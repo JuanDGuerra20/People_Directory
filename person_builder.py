@@ -5,8 +5,6 @@ Kind of like contacts in the iPhone
 Will do this through the use of classes
 """
 
-import doctest
-
 
 class Person:
     """
@@ -55,3 +53,58 @@ class Person:
         return self.name + '\n' + 'Address: ' + self.address + '\n' + 'Phone numbers: ' \
                + str(self.phone_number) + '\n' + 'Emails: ' + str(self.email) + '\n' + \
                'Relationship: ' + self.relationship
+
+    def add_phone_number(self, phone_number):
+        """
+        (list) --> String
+        :param phone_number: Type list - adds a phone number to the person
+        :return: the dictionary of phone numbers
+        """
+
+        # checking if the type of phone number already exists in the dictionary
+        # example: personal is already in the phone number dictionary
+        # if so, ensure that the user wants to change the type of number
+        if phone_number[0] in self.phone_number:
+
+            print("This number type is already registered...")
+            print("Would you like to replace the number")
+
+            # creating the variable that will hold the choice type
+            replace_choice = input("YES or NO: ").upper()
+
+            # ensuring that the type of input is correct
+            while replace_choice != "YES" and replace_choice != "NO":
+                print('Unsupported input. Try again with Yes or No')
+
+                # retrying the input
+                replace_choice = input("YES or NO: ")
+
+                replace_choice = replace_choice.upper()
+
+            # if the user wants to change, then change the phone number
+            if replace_choice == 'YES':
+
+                print('Changing the phone number')
+                # changing the value of the desired number to the new number
+                self.phone_number[phone_number[0]] = phone_number[1]
+                print('New numbers are: ' + str(self.phone_number))
+                return self.phone_number
+
+            # if user does not want to change, do not change
+            else:
+
+                print('The phone number was not changed')
+                return str(self.phone_number)
+
+        self.phone_number[phone_number[0]] = phone_number[1]
+        return self.phone_number
+
+
+"""
+Testing stuff:
+
+juan = Person('Juan', '98 Kimbark Boulevard', [('personal', '4165644604'), ('dad', '4162781221')],
+              [('personal', 'juandavidguerra1@gmail.com')], 'myself')
+
+juan.add_phone_number(('personal', '4166660541'))
+"""
