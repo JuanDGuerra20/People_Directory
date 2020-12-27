@@ -176,15 +176,13 @@ class Person:
         print('New emails are: ' + str(self.email))
         return self.email
 
+    def change_address(self, new_address):
+        """
+        This instance method changes the address
+        :param new_address: string that is the new person's address
+        :return: the new address
+        """
 
-"""
-Testing stuff:
+        self.address = new_address
 
-juan = Person('Juan', 'Guerra', '98 Kimbark Boulevard', [('personal', '4165644604'), ('dad', '4162781221')],
-              [('personal', 'juandavidguerra1@gmail.com')], 'myself')
-
-print(str(juan))
-juan.add_multiple_emails([('work', 'juan.guerra@mail.mcgill.ca'), ('personal', 'juandavidguerra2@gmail.com')])
-
-print(str(juan))
-"""
+        return self.address
