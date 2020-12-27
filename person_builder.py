@@ -31,19 +31,27 @@ class Person:
         self.phone_number = {}  # creating the dictionary that will map phone numbers to their use (work, personal,
         # etc.)
 
+        # assuming a phone number was input, add it to the dictionary of phone numbers
         if phone_number is not None:
             for number in phone_number:
                 self.phone_number[number[0]] = number[1]
 
+        # creating the email dictionary
         self.email = {}
 
+        # doing the same as in the phone_number dictionary, creating the dictionary of emails
         if list_email is not None:
             for email in list_email:
                 self.email[email[0]] = email[1]
 
+        # assigning the relationship attribute
         self.relationship = relationship
 
     def __str__(self):
-        return
-
-
+        """
+        Overloading the str cast to return what I want: the info of the person
+        :return: returns the information of the given person
+        """
+        return self.name + '\n' + 'Address: ' + self.address + '\n' + 'Phone numbers: ' \
+               + str(self.phone_number) + '\n' + 'Emails: ' + str(self.email) + '\n' + \
+               'Relationship: ' + self.relationship
