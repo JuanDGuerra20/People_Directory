@@ -47,7 +47,3 @@ class Person:
         return
 
 
-a = Person('98 kimbark blvd', [('personal', '4165644604')],
-           [('work', 'juanguerra@mail.mcgill.ca'), ('personal', 'juandavidguerra1@gmail.com')], 'myself')
-
-print(a.relationship)
