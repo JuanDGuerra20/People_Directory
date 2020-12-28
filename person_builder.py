@@ -57,7 +57,7 @@ class Person:
 
     def add_phone_number(self, phone_number):
         """
-        (list) --> String
+        (tuple) --> String
         :param phone_number: Type list - adds a phone number to the person
         :return: the dictionary of phone numbers
         """
@@ -188,10 +188,20 @@ class Person:
         return self.address
 
 
+juan = Person('JUAN', 'GUERRA', '98 Kimbark Boulevard', [('personal', '4165644604')],
+              [('personal', 'juandavidguerra1@gmail.com')], 'myself')
+
+print(str(juan))
+something = [juan]
+another = ['work', '4162781221']
+something[0].add_phone_number((another[0], another[1]))
+print(str(juan))
+
 terminate = False
 list_of_contacts = []
+print('Welcome to the contacts directory! \n')
+
 while not terminate:
-    print('Welcome to the contacts directory! \n')
 
     print('Options are:')
     print('1: Add a new contact')
@@ -220,7 +230,7 @@ while not terminate:
         input_address = input('Please enter the full address of the contact: ')
 
         # following is for the phone numbers
-        print('Please enter the type of phone number (personal, etc.) followed by a space then number')
+        print('Please enter the type of phone number (personal, etc.) followed by a comma then number')
         input_phone = input('In this format - personal,5555555555: ').upper()
 
         # creating the list that will hold the numbers
@@ -242,7 +252,7 @@ while not terminate:
         # if the user wants to add more numbers
         while more_phones == 'YES':
             # same as above, taking the number and putting it into a tuple and appending
-            print('Please enter the type of phone number (personal, etc.) followed by a space then number')
+            print('Please enter the type of phone number (personal, etc.) followed by a comma then number')
             input_phone = input('In this format - personal,5555555555 ').upper()
 
             input_phone.split(',')
@@ -257,12 +267,12 @@ while not terminate:
                 more_phones = input('Incorrect input. Please type YES or NO').upper()
 
         # doing the same as the phone number but with emails (input should be same type)
-        print('Please enter the type of email (personal, etc.) followed by a space then the email')
+        print('Please enter the type of email (personal, etc.) followed by a comma then the email')
         input_email = input('In this format - personal,johndoe@gmail.com: ').upper()
 
         list_of_emails = []
 
-        input_email.split(',')
+        input_email = input_email.split(',')
         list_of_emails.append((input_email[0], input_email[1].lower()))
 
         print('Would you like to add another email?')
@@ -273,7 +283,7 @@ while not terminate:
             more_emails = input('Incorrect input. Please type YES or NO').upper()
 
         while more_emails == 'YES':
-            print('Please enter the type of email (personal, etc.) followed by a space then the email')
+            print('Please enter the type of email (personal, etc.) followed by a comma then the email')
             input_email = input('In this format - personal,johndoe@gmail.com: ').upper()
 
             list_of_emails = []
@@ -297,8 +307,102 @@ while not terminate:
         # adding the contact to the list of contacts
         list_of_contacts.append(input_first_name)
 
+    # if the user chooses option 2, allow them to modify a person
+    elif option == 2:
+        if list_of_contacts == []:
+            print('There are no contacts to modify. Please choose options 1 or 3')
+        else:
+
+            print('Which contact would you like to modify?')
+            counter = 0
+            for contact in list_of_contacts:
+                print(str(counter) + ': ' + contact.first_name + ' ' + contact.last_name)
+                counter += 1
+
+            # This will be the index of the contact in the contact list
+            modify_contact = input('Please enter the number of the contact you wish to modify: ')
+
+            while not modify_contact.isdigit() and int(modify_contact) > counter:
+                print('Unsupported number. Please try again')
+                modify_contact = input('Please enter the number of the contact you wish to modify: ')
+
+            modify_contact = int(modify_contact)
+
+            print('What would you like to do? The options are:')
+            print('1: Add a phone number')
+            print('2: Add multiple phone numbers')
+            print('3: Add an email')
+            print('4: Add multiple emails')
+            print('5: Change the address')
+            print('6: Change the relationship to the contact')
+
+            modify_choice = input('Which option would you like? ')
+
+            while not modify_choice.isdigit() and int(modify_choice) > 6:
+                print('Unsupported option. Please try again')
+                modify_choice = input('Which option would you like? ')
+
+            modify_choice = int(modify_choice)
+
+            if modify_choice == 1:
+                print('Please enter the type of phone number (personal, etc.) followed by a comma then number')
+                new_phone = input('In this format - personal,5555555555: ').upper()
+
+                new_phone = new_phone.split(',')
+                list_of_contacts[modify_contact].add_phone_number((new_phone[0], new_phone[1]))
+
+                print('Here is the new contact:')
+                print(str(list_of_contacts[modify_contact]))
+
+            elif modify_choice == 2:
+                # following is for the phone numbers
+                print('Please enter the type of phone number (personal, etc.) followed by a comma then number')
+                input_phone = input('In this format - personal,5555555555: ').upper()
+
+                # creating the list that will hold the numbers
+                list_of_numbers = []
+
+                # splitting the input at the comma
+                input_phone = input_phone.split(',')
+                # adding the phone number and type into the list of numbers
+                list_of_numbers.append((input_phone[0], input_phone[1]))
+
+                # asking the user if they want to add more numbers
+                print('Would you like to add another number?')
+                more_phones = input('YES or NO: ').upper()
+
+                # making sure the input is correct
+                while more_phones != 'YES' and more_phones != 'NO':
+                    more_phones = input('Incorrect input. Please type YES or NO').upper()
+
+                # if the user wants to add more numbers
+                while more_phones == 'YES':
+                    # same as above, taking the number and putting it into a tuple and appending
+                    print('Please enter the type of phone number (personal, etc.) followed by a comma then number')
+                    input_phone = input('In this format - personal,5555555555 ').upper()
+
+                    input_phone.split(',')
+                    list_of_numbers.append((input_phone[0], input_phone[1]))
+
+                    print('Would you like to add another number?')
+                    more_phones = input('YES or NO: ')
+                    more_phones = more_phones.upper()
+
+                    # checking for the correct type of input
+                    while more_phones != 'YES' and more_phones != 'NO':
+                        more_phones = input('Incorrect input. Please type YES or NO').upper()
+
+                # adding the list of phone numbers to the contact
+                list_of_contacts[modify_contact].add_list_of_phone_numbers(list_of_numbers)
+
+                print('Here is the new contact:')
+                print(str(list_of_contacts[modify_contact]))
+
+            elif modify_choice == 3:
+                print('keep going')
+
     # if the user chooses option 3, terminate the program in a polite manner :)
-    if option == 3:
+    elif option == 3:
         print('Thank you for using the contacts directory!')
         print('Have a nice day!')
         terminate = True
