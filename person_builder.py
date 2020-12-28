@@ -199,11 +199,11 @@ print(str(juan))
 
 terminate = False
 list_of_contacts = []
-print('Welcome to the contacts directory! \n')
+print('Welcome to the contacts directory!')
 
 while not terminate:
 
-    print('Options are:')
+    print('\nOptions are:')
     print('1: Add a new contact')
     print('2: Modify a contact')
     print('3: Terminate program')
@@ -255,7 +255,7 @@ while not terminate:
             print('Please enter the type of phone number (personal, etc.) followed by a comma then number')
             input_phone = input('In this format - personal,5555555555 ').upper()
 
-            input_phone.split(',')
+            input_phone = input_phone.split(',')
             list_of_numbers.append((input_phone[0], input_phone[1]))
 
             print('Would you like to add another number?')
@@ -304,6 +304,7 @@ while not terminate:
         input_first_name = Person(input_first_name, input_last_name, input_address, list_of_numbers,
                                   list_of_emails, input_relationship)
 
+        print('Your new contact is: \n' + str(input_first_name))
         # adding the contact to the list of contacts
         list_of_contacts.append(input_first_name)
 
@@ -329,8 +330,8 @@ while not terminate:
             modify_contact = int(modify_contact)
 
             print('What would you like to do? The options are:')
-            print('1: Add a phone number')
-            print('2: Add multiple phone numbers')
+            print('1: Add/replace a phone number')
+            print('2: Add/replace multiple phone numbers')
             print('3: Add an email')
             print('4: Add multiple emails')
             print('5: Change the address')
@@ -381,6 +382,7 @@ while not terminate:
                     print('Please enter the type of phone number (personal, etc.) followed by a comma then number')
                     input_phone = input('In this format - personal,5555555555 ').upper()
 
+                    print(input_phone)
                     input_phone.split(',')
                     list_of_numbers.append((input_phone[0], input_phone[1]))
 
@@ -399,7 +401,7 @@ while not terminate:
                 print(str(list_of_contacts[modify_contact]))
 
             elif modify_choice == 3:
-                print('keep going')
+                print('keep going! you got this!')
 
     # if the user chooses option 3, terminate the program in a polite manner :)
     elif option == 3:
