@@ -116,21 +116,21 @@ class Person:
         # returning the dictionary of numbers
         return self.phone_number
 
-    def add_email(self, new_email):
+    def add_email(self, add_email):
         """
         This instance method adds new email data into the object of type class
-        :param new_email: type = tuple --> (type of email, email)
+        :param add_email: type = tuple --> (type of email, email)
         :return: self.email
         """
 
         # checking if the type of email already exists in the dictionary
         # example: personal is already in the email dictionary
         # if so, ensure that the user wants to change the type of email
-        if new_email[0] in self.email:
+        if add_email[0] in self.email:
 
-            print("The " + new_email[0] + " email type is already registered as: " + self.email[
-                new_email[0]])
-            print("Would you like to replace the email with: " + new_email[1])
+            print("The " + add_email[0] + " email type is already registered as: " + self.email[
+                add_email[0]])
+            print("Would you like to replace the email with: " + add_email[1])
 
             # creating the variable that will hold the choice type
             replace_choice = input("YES or NO: ").upper()
@@ -149,7 +149,7 @@ class Person:
 
                 print('Changing the email')
                 # changing the value of the desired email to the new email
-                self.email[new_email[0]] = new_email[1]
+                self.email[add_email[0]] = add_email[1]
                 return self.email
 
             # if user does not want to change, do not change
@@ -158,7 +158,7 @@ class Person:
                 print('The email was not changed')
                 return self.email
 
-        self.email[new_email[0]] = new_email[1]
+        self.email[add_email[0]] = add_email[1]
         return self.email
 
     def add_multiple_emails(self, email_list):
@@ -191,15 +191,10 @@ class Person:
 juan = Person('JUAN', 'GUERRA', '98 Kimbark Boulevard', [('personal', '4165644604')],
               [('personal', 'juandavidguerra1@gmail.com')], 'myself')
 
-print(str(juan))
-something = [juan]
-another = ['work', '4162781221']
-something[0].add_phone_number((another[0], another[1]))
-print(str(juan))
 
-terminate = False
-list_of_contacts = []
 print('Welcome to the contacts directory!')
+list_of_contacts = []
+terminate = False
 
 while not terminate:
 
@@ -308,9 +303,9 @@ while not terminate:
         # adding the contact to the list of contacts
         list_of_contacts.append(input_first_name)
 
-    # if the user chooses option 2, allow them to modify a person
+    # if the user chooses option 2, allow them to modify a person =====================================================
     elif option == 2:
-        if list_of_contacts == []:
+        if not list_of_contacts:
             print('There are no contacts to modify. Please choose options 1 or 3')
         else:
 
@@ -332,8 +327,7 @@ while not terminate:
             print('What would you like to do? The options are:')
             print('1: Add/replace a phone number')
             print('2: Add/replace multiple phone numbers')
-            print('3: Add an email')
-            print('4: Add multiple emails')
+            print('3: Add/replace an email(s)')
             print('5: Change the address')
             print('6: Change the relationship to the contact')
 
@@ -382,7 +376,6 @@ while not terminate:
                     print('Please enter the type of phone number (personal, etc.) followed by a comma then number')
                     input_phone = input('In this format - personal,5555555555 ').upper()
 
-                    print(input_phone)
                     input_phone.split(',')
                     list_of_numbers.append((input_phone[0], input_phone[1]))
 
@@ -401,7 +394,45 @@ while not terminate:
                 print(str(list_of_contacts[modify_contact]))
 
             elif modify_choice == 3:
-                print('keep going! you got this!')
+                print('Please enter the type of email (personal, etc.) followed by a comma then the email')
+                new_email = input('In this format - personal,johndoe@gmail.com: ').upper()
+
+                list_of_emails = []
+
+                # splitting the input at the comma to separate the type of number and the actual number
+                new_email = new_email.split(',')
+
+                list_of_emails.append((new_email[0], new_email[1].lower()))
+                # asking the user if they want to add more emails
+                print('Would you like to add another email?')
+                more_emails = input('YES or NO: ').upper()
+
+                # making sure the input is correct
+                while more_emails != 'YES' and more_emails != 'NO':
+                    more_emails = input('Incorrect input. Please type YES or NO').upper()
+
+                # if the user wants to add more emails
+                while more_emails == 'YES':
+                    # same as above, taking the number and putting it into a tuple and appending
+                    print('Please enter the type of email (personal, etc.) followed by a comma then the email')
+                    input_email = input('In this format - personal,johndoe@gmail.com ').upper()
+
+                    input_email = input_email.split(',')
+                    list_of_emails.append((input_email[0], input_email[1].lower()))
+
+                    print('Would you like to add another email?')
+                    more_emails = input('YES or NO: ')
+                    more_emails = more_emails.upper()
+
+                    # checking for the correct type of input
+                    while more_emails != 'YES' and more_emails != 'NO':
+                        more_emails = input('Incorrect input. Please type YES or NO').upper()
+
+                # adding the list of phone numbers to the contact
+                list_of_contacts[modify_contact].add_multiple_emails(list_of_emails)
+
+                print('Here is the new contact:')
+                print(str(list_of_contacts[modify_contact]))
 
     # if the user chooses option 3, terminate the program in a polite manner :)
     elif option == 3:
