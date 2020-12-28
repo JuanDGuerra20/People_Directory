@@ -5,6 +5,7 @@ Kind of like contacts in the iPhone
 Will do this through the use of classes
 """
 
+import time
 
 class Person:
     """
@@ -187,6 +188,17 @@ class Person:
 
         return self.address
 
+    def change_relationship(self, new_relationship):
+        """
+        This instance method changes the relationship
+        :param new_relationship: type: string.
+        :return: the relationship
+        """
+
+        self.relationship = new_relationship
+
+        return self.relationship
+
 
 juan = Person('JUAN', 'GUERRA', '98 Kimbark Boulevard', [('personal', '4165644604')],
               [('personal', 'juandavidguerra1@gmail.com')], 'myself')
@@ -198,6 +210,8 @@ terminate = False
 
 while not terminate:
 
+    if list_of_contacts:
+        time.sleep(4)
     print('\nOptions are:')
     print('1: Add a new contact')
     print('2: Modify a contact')
@@ -312,7 +326,8 @@ while not terminate:
             print('Which contact would you like to modify?')
             counter = 0
             for contact in list_of_contacts:
-                print(str(counter) + ': ' + contact.first_name + ' ' + contact.last_name)
+                print(str(counter) + ': ' + contact.first_name + ' ' + contact.last_name +
+                      ' (' + contact.relationship + ')')
                 counter += 1
 
             # This will be the index of the contact in the contact list
@@ -325,11 +340,10 @@ while not terminate:
             modify_contact = int(modify_contact)
 
             print('What would you like to do? The options are:')
-            print('1: Add/replace a phone number')
-            print('2: Add/replace multiple phone numbers')
-            print('3: Add/replace an email(s)')
-            print('5: Change the address')
-            print('6: Change the relationship to the contact')
+            print('1: Add/replace a phone number(s)')
+            print('2: Add/replace an email(s)')
+            print('3: Change the address')
+            print('4: Change the relationship to the contact')
 
             modify_choice = input('Which option would you like? ')
 
@@ -340,16 +354,6 @@ while not terminate:
             modify_choice = int(modify_choice)
 
             if modify_choice == 1:
-                print('Please enter the type of phone number (personal, etc.) followed by a comma then number')
-                new_phone = input('In this format - personal,5555555555: ').upper()
-
-                new_phone = new_phone.split(',')
-                list_of_contacts[modify_contact].add_phone_number((new_phone[0], new_phone[1]))
-
-                print('Here is the new contact:')
-                print(str(list_of_contacts[modify_contact]))
-
-            elif modify_choice == 2:
                 # following is for the phone numbers
                 print('Please enter the type of phone number (personal, etc.) followed by a comma then number')
                 input_phone = input('In this format - personal,5555555555: ').upper()
@@ -393,7 +397,7 @@ while not terminate:
                 print('Here is the new contact:')
                 print(str(list_of_contacts[modify_contact]))
 
-            elif modify_choice == 3:
+            elif modify_choice == 2:
                 print('Please enter the type of email (personal, etc.) followed by a comma then the email')
                 new_email = input('In this format - personal,johndoe@gmail.com: ').upper()
 
@@ -433,6 +437,23 @@ while not terminate:
 
                 print('Here is the new contact:')
                 print(str(list_of_contacts[modify_contact]))
+
+            # user wants to change the address ========================================================================
+            elif modify_choice == 3:
+
+                input_address = input("What is the new address of the contact (please enter full): ")
+
+                list_of_contacts[modify_contact].change_address(input_address)
+                print('\nHere is the new contact:')
+                print(list_of_contacts[modify_contact])
+
+            elif modify_choice == 4:
+
+                input_relationship = input("What is this person's new relationship to you? ")
+                list_of_contacts[modify_contact].change_relationship(input_relationship)
+
+                print('\nHere is the new contact:')
+                print(list_of_contacts[modify_contact])
 
     # if the user chooses option 3, terminate the program in a polite manner :)
     elif option == 3:
