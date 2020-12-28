@@ -51,9 +51,9 @@ class Person:
         Overloading the str cast to return what I want: the info of the person
         :return: returns the information of the given person
         """
-        return 'Name: ' + self.first_name + ' ' + self.last_name + '\n' + 'Address: ' + self.address + '\n'\
-            + 'Phone numbers: ' + str(self.phone_number) + '\n' + 'Emails: ' + str(self.email) + '\n' + \
-            'Relationship: ' + self.relationship
+        return 'Name: ' + self.first_name + ' ' + self.last_name + '\n' + 'Address: ' + self.address + '\n' \
+               + 'Phone numbers: ' + str(self.phone_number) + '\n' + 'Emails: ' + str(self.email) + '\n' + \
+               'Relationship: ' + self.relationship
 
     def add_phone_number(self, phone_number):
         """
@@ -211,29 +211,37 @@ while not terminate:
 
     option = int(option)
 
+    # user wants to add a contact
     if option == 1:
 
+        # taking in the simple information
         input_first_name = input('Please enter the first name of the contact: ').upper()
         input_last_name = input('Please enter the last name of the contact: ').upper()
         input_address = input('Please enter the full address of the contact: ')
 
+        # following is for the phone numbers
         print('Please enter the type of phone number (personal, etc.) followed by a space then number')
         input_phone = input('In this format - personal,5555555555: ').upper()
 
+        # creating the list that will hold the numbers
         list_of_numbers = []
 
-        input_phone.split(',')
+        # splitting the input at the comma
+        input_phone = input_phone.split(',')
+        # adding the phone number and type into the list of numbers
         list_of_numbers.append((input_phone[0], input_phone[1]))
 
+        # asking the user if they want to add more numbers
         print('Would you like to add another number?')
-        more_phones = input('YES or NO: ')
-        more_phones = more_phones.upper()
+        more_phones = input('YES or NO: ').upper()
 
+        # making sure the input is correct
         while more_phones != 'YES' and more_phones != 'NO':
+            more_phones = input('Incorrect input. Please type YES or NO').upper()
 
-            print('Incorrect input. Please type YES or NO')
-
+        # if the user wants to add more numbers
         while more_phones == 'YES':
+            # same as above, taking the number and putting it into a tuple and appending
             print('Please enter the type of phone number (personal, etc.) followed by a space then number')
             input_phone = input('In this format - personal,5555555555 ').upper()
 
@@ -244,9 +252,11 @@ while not terminate:
             more_phones = input('YES or NO: ')
             more_phones = more_phones.upper()
 
+            # checking for the correct type of input
             while more_phones != 'YES' and more_phones != 'NO':
-                print('Incorrect input. Please type YES or NO')
+                more_phones = input('Incorrect input. Please type YES or NO').upper()
 
+        # doing the same as the phone number but with emails (input should be same type)
         print('Please enter the type of email (personal, etc.) followed by a space then the email')
         input_email = input('In this format - personal,johndoe@gmail.com: ').upper()
 
@@ -260,7 +270,7 @@ while not terminate:
         more_emails = more_emails.upper()
 
         while more_emails != 'YES' and more_emails != 'NO':
-            print('Incorrect input. Please type YES or NO')
+            more_emails = input('Incorrect input. Please type YES or NO').upper()
 
         while more_emails == 'YES':
             print('Please enter the type of email (personal, etc.) followed by a space then the email')
@@ -275,15 +285,19 @@ while not terminate:
             more_emails = input('YES or NO: ').upper()
 
             while more_emails != 'YES' and more_emails != 'NO':
-                print('Incorrect input. Please type YES or NO')
+                more_emails = input('Incorrect input. Please type YES or NO').upper()
 
+        # Taking the relationship to the user
         input_relationship = input('Please input your relationship to this person: ')
 
+        # creating the contact and storing it in a variable with the first name of the contact
         input_first_name = Person(input_first_name, input_last_name, input_address, list_of_numbers,
                                   list_of_emails, input_relationship)
 
+        # adding the contact to the list of contacts
         list_of_contacts.append(input_first_name)
 
+    # if the user chooses option 3, terminate the program in a polite manner :)
     if option == 3:
         print('Thank you for using the contacts directory!')
         print('Have a nice day!')
