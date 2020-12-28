@@ -186,3 +186,105 @@ class Person:
         self.address = new_address
 
         return self.address
+
+
+terminate = False
+list_of_contacts = []
+while not terminate:
+    print('Welcome to the contacts directory! \n')
+
+    print('Options are:')
+    print('1: Add a new contact')
+    print('2: Modify a contact')
+    print('3: Terminate program')
+
+    option = input('Select one of the options (1,2 or 3): ')
+
+    while option not in ['1', '2', '3']:
+        print('Incorrect input type. Please choose 1, 2, or 3')
+        print('Options are:')
+        print('1: Add a new contact')
+        print('2: Modify a contact')
+        print('3: Terminate program')
+
+        option = input('Select one of the options (1,2 or 3): ')
+
+    option = int(option)
+
+    if option == 1:
+
+        input_first_name = input('Please enter the first name of the contact: ').upper()
+        input_last_name = input('Please enter the last name of the contact: ').upper()
+        input_address = input('Please enter the full address of the contact: ')
+
+        print('Please enter the type of phone number (personal, etc.) followed by a space then number')
+        input_phone = input('In this format - personal,5555555555: ').upper()
+
+        list_of_numbers = []
+
+        input_phone.split(',')
+        list_of_numbers.append((input_phone[0], input_phone[1]))
+
+        print('Would you like to add another number?')
+        more_phones = input('YES or NO: ')
+        more_phones = more_phones.upper()
+
+        while more_phones != 'YES' and more_phones != 'NO':
+
+            print('Incorrect input. Please type YES or NO')
+
+        while more_phones == 'YES':
+            print('Please enter the type of phone number (personal, etc.) followed by a space then number')
+            input_phone = input('In this format - personal,5555555555 ').upper()
+
+            input_phone.split(',')
+            list_of_numbers.append((input_phone[0], input_phone[1]))
+
+            print('Would you like to add another number?')
+            more_phones = input('YES or NO: ')
+            more_phones = more_phones.upper()
+
+            while more_phones != 'YES' and more_phones != 'NO':
+                print('Incorrect input. Please type YES or NO')
+
+        print('Please enter the type of email (personal, etc.) followed by a space then the email')
+        input_email = input('In this format - personal,johndoe@gmail.com: ').upper()
+
+        list_of_emails = []
+
+        input_email.split(',')
+        list_of_emails.append((input_email[0], input_email[1].lower()))
+
+        print('Would you like to add another email?')
+        more_emails = input('YES or NO: ')
+        more_emails = more_emails.upper()
+
+        while more_emails != 'YES' and more_emails != 'NO':
+            print('Incorrect input. Please type YES or NO')
+
+        while more_emails == 'YES':
+            print('Please enter the type of email (personal, etc.) followed by a space then the email')
+            input_email = input('In this format - personal,johndoe@gmail.com: ').upper()
+
+            list_of_emails = []
+
+            input_email.split(',')
+            list_of_emails.append((input_email[0], input_email[1].lower()))
+
+            print('Would you like to add another email?')
+            more_emails = input('YES or NO: ').upper()
+
+            while more_emails != 'YES' and more_emails != 'NO':
+                print('Incorrect input. Please type YES or NO')
+
+        input_relationship = input('Please input your relationship to this person: ')
+
+        input_first_name = Person(input_first_name, input_last_name, input_address, list_of_numbers,
+                                  list_of_emails, input_relationship)
+
+        list_of_contacts.append(input_first_name)
+
+    if option == 3:
+        print('Thank you for using the contacts directory!')
+        print('Have a nice day!')
+        terminate = True
