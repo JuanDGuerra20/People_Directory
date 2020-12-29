@@ -7,6 +7,7 @@ Will do this through the use of classes
 
 import time
 
+
 class Person:
     """
     This class will create an object that will store the person's information
